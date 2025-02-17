@@ -8,6 +8,14 @@ namespace DropletHelper.Spotify
 {
     internal class SpotifyUser
     {
+        string UserName;
+        string UserID;
+
+
+        Dictionary<string, string> Playlists;
+
+        
+
 
 
 

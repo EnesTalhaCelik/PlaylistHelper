@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DropletHelper
@@ -9,12 +10,13 @@ namespace DropletHelper
     internal class Song
     {
 
-        string SongName { get; }
+        public string SongName { get; }
 
-        string SongLink { get;}
+        public string SongLink { get;}
 
-        string SongCreator { get; }
+        public string SongCreator { get; }
         Dictionary<string,int> Token {get;}
+
 
         public Song(string songname,string link,string creator)
         {
@@ -23,35 +25,45 @@ namespace DropletHelper
             SongLink = link;
             SongCreator = creator;
 
-            TokenizeSong(SongName,SongCreator);
-
-
-
+            TokenizeSong();
         }
+
         public Song(string songname,string creator)
         {
+            SongName = songname;
+            SongCreator = creator;
 
-
-
+            TokenizeSong();
         }
+
         public Song(string songname)
         {
 
+            SongName = songname;
 
-
+            TokenizeSong();
         }
 
-        private void TokenizeSong(string name,string creator)
+
+
+        private void TokenizeSong()
         {
+            string[] tokens = Regex.Split(SongName + SongCreator," ");
 
+            foreach (string key in tokens) {
+                if (Token[key] == null)
+                {
+                    Token.Add(key, 1);
+
+                }
+                else
+                {
+                    Token[key] += 1;
+                }
+            }
 
         }
 
-        private void TokenizeSong(string name)
-        {
-
-
-        }
-
+      
     }
 }
